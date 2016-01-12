@@ -14,7 +14,7 @@ describe Peasant do
     expect(@peasant.health_points).to eq(35)
   end
 
-  it "can't damage other units (no attack power)" do
+  it "can't take_damage other units (no attack power)" do
     expect(@peasant.attack_power).to eq(0)
   end
 

@@ -6,10 +6,16 @@ class Unit
   end
 
   def attack!(enemy)
-    enemy.damage(attack_power)
+    unless dead? || enemy.dead?
+      enemy.take_damage(attack_power)
+    end
   end
 
-  def damage(damage_dealt)
-    @health_points -= damage_dealt
+  def take_damage(damage)
+    @health_points -= damage
+  end
+
+  def dead?
+    health_points <= 0
   end
 end

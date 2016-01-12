@@ -1,6 +1,6 @@
 require_relative 'spec_helper'
 
-# A Footman should be able to attack other units as well as receive damage
+# A Footman should be able to attack other units as well as receive take_damage
 # Later on, other units such as the peasant will be incapable of attacking
 
 describe Footman do
@@ -10,18 +10,23 @@ describe Footman do
   end
 
   describe "#attack!" do
-    it "should do deal 10 (AP) damage to the enemy unit" do
+    it "should do deal 10 (AP) take_damage to the enemy unit" do
       enemy = Footman.new
-      expect(enemy).to receive(:damage).with(10)
+      expect(enemy).to receive(:take_damage).with(10)
+      @footman.attack!(enemy)
+    end
+
+    it "should deal half damage (5) to enemy if enemy is barracks" do
+      enemy = Barracks.new
+      expect(enemy).to receive(:take_damage).with(5)
       @footman.attack!(enemy)
     end
   end
 
-  describe "#damage" do
+  describe "#take_damage" do
     it "should reduce the unit's health_points by the attack_power specified" do
-      @footman.damage(4)
+      @footman.take_damage(4)
       expect(@footman.health_points).to eq(56) # starts at 60
     end
   end
-
 end
